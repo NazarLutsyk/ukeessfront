@@ -1,0 +1,16 @@
+<table>
+  <thead>
+    <th>ID</th>
+    <th>NAME</th>
+    <th *ngIf="canUpdate"></th>
+    <th *ngIf="canDelete"></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dep of departments">
+      <td>{{dep.dpId}}</td>
+      <td>{{dep.dpName}}</td>
+      <td *ngIf="canUpdate" (click)="emitUpdate(dep)">UPDATE</td>
+      <td *ngIf="canDelete" (click)="emitDelete(dep)">DELETE</td>
+    </tr>
+  </tbody>
+</table>

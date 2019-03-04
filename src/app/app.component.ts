@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {UsersService} from './services/users.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ukeessfront';
+
+  constructor(
+    public usersService: UsersService,
+    private router: Router
+  ) {
+  }
+
+  logout() {
+    this.usersService.logout().subscribe(() => {
+      this.router.navigate(['auth']);
+    });
+  }
 }

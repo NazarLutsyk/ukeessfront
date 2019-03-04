@@ -1,0 +1,15 @@
+.navbar{
+  display: flex;
+  width: 100%;
+  list-style: none;
+  justify-content: space-between;
+  text-align: center;
+  margin: 15px 0;
+  padding: 15px 0;
+}
+
+.navbar > li{
+  width: 33%;
+  padding: 0 0;
+  margin: 0 0;
+}

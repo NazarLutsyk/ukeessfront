@@ -1,0 +1,47 @@
+<form #empCreateForm="ngForm"
+      *ngIf="!!principal"
+      (ngSubmit)="createEmp(empCreateForm)">
+  <input type="text"
+         name="empName"
+         placeholder="Name"
+         ngModel
+         required>
+  <label>Active</label>
+  <input type="checkbox"
+         name="empActive"
+         ngModel>
+  <select name="empDpID" ngModel>
+    <option [value]="dep.dpId" *ngFor="let dep of departments">{{dep.dpName}}</option>
+  </select>
+  <button [disabled]="empCreateForm.invalid">CREATE</button>
+</form>
+<span *ngFor="let p of pages" (click)="loadPaginated(p)"> {{p}} </span>
+<form>
+  <input type="text" [(ngModel)]="nameFilter" name="nameFilter">
+  <button (click)="loadEmps()">FIND</button>
+</form>
+<app-employee-table *ngIf="employees.length > 0"
+                    [canDelete]="!!principal"
+                    [canUpdate]="!!principal"
+                    (onUpdateClick)="setFocusToUpdate($event)"
+                    (onDeleteClick)="deleteEmp($event)"
+                    [employees]="employees">
+</app-employee-table>
+<form #empUpdateForm="ngForm"
+      *ngIf="focusUpdateEmp"
+      (ngSubmit)="updateEmp(empUpdateForm)">
+  <input type="text"
+         name="empName"
+         placeholder="Name"
+         [(ngModel)]="focusUpdateEmp.empName"
+         required>
+  <label>Active</label>
+  <input type="checkbox"
+         name="empActive"
+         [(ngModel)]="focusUpdateEmp.empActive">
+  <select name="empDpID" [(ngModel)]="focusUpdateEmp.empDpID">
+    <option [value]="dep.dpId" *ngFor="let dep of departments">{{dep.dpName}}</option>
+  </select>
+  <button [disabled]="empUpdateForm.invalid">UPDATE</button>
+  <button type="button" (click)="focusUpdateEmp=null">CANCEL</button>
+</form>

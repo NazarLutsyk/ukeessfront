@@ -1,0 +1,27 @@
+<form #depCreateForm="ngForm"
+      *ngIf="!!principal"
+      (ngSubmit)="createDep(depCreateForm)">
+  <input type="text"
+         name="dpName"
+         placeholder="Name"
+         ngModel
+         required>
+  <button [disabled]="depCreateForm.invalid">CREATE</button>
+</form>
+<span *ngFor="let p of pages" (click)="loadPaginated(p)"> {{p}} </span>
+<app-department-table *ngIf="departments.length > 0"
+                      [canDelete]="!!principal"
+                      [canUpdate]="!!principal"
+                      (onDeleteClick)="deleteDep($event)"
+                      (onUpdateClick)="setFocusToUpdate($event)"
+                      [departments]="departments">
+</app-department-table>
+<form #depUpdateForm="ngForm" (ngSubmit)="updateDep()" *ngIf="focusUpdateDep">
+  <input type="text"
+         name="dpName"
+         placeholder="Name"
+         [(ngModel)]="focusUpdateDep.dpName"
+         required>
+  <button [disabled]="depUpdateForm.invalid">UPDATE</button>
+  <button type="button" (click)="focusUpdateDep=null">CANCEL</button>
+</form>
